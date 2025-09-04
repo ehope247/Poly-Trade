@@ -16,19 +16,14 @@ const Header = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // --- THIS IS THE NEW LOGIC ---
-  // This useEffect hook runs whenever the router's query changes
   useEffect(() => {
     if (router.query.signup === 'true') {
       setIsSignUpModalOpen(true);
-      // Clean up the URL so the query doesn't stay there
       router.replace('/', undefined, { shallow: true });
     }
   }, [router.query, router]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => { setIsMenuOpen(!isMenuOpen); };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -43,9 +38,7 @@ const Header = () => {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => { document.removeEventListener('mousedown', handleClickOutside); };
   }, [menuRef]);
 
   return (
@@ -57,11 +50,9 @@ const Header = () => {
             <span>Poly-Trade</span>
           </div>
         </Link>
-
         <div className={styles.menuIcon} onClick={toggleMenu}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ffffff" viewBox="0 0 256 256"><path d="M128,60a12,12,0,1,1-12-12A12,12,0,0,1,128,60Zm0,68a12,12,0,1,1-12-12A12,12,0,0,1,128,128Zm0,68a12,12,0,1,1-12-12A12,12,0,0,1,128,196Z"></path></svg>
         </div>
-
         <nav className={`${styles.menuPanel} ${isMenuOpen ? styles.open : ''}`}>
           {session ? (
             <>
@@ -76,9 +67,13 @@ const Header = () => {
               <div className={styles.menuLink} onClick={() => { setIsLoginModalOpen(true); setIsMenuOpen(false); }}>Login</div>
             </>
           )}
+          <div className={styles.divider}></div>
+          <Link href="/" className={styles.menuLink}>Home</Link>
+          {/* === THE NEW LINK IS HERE === */}
+          <Link href="/live-news" className={styles.menuLink}>Live News</Link>
+          <Link href="/contact" className={styles.menuLink}>Contact</Link>
         </nav>
       </header>
-
       <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </>

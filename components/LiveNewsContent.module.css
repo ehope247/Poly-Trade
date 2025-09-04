@@ -1,0 +1,39 @@
+.container {
+  position: relative;
+  z-index: 2; /* Sits on top of the video background */
+  padding: 120px 20px 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #c0c0c0;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+}
+
+.widgetContainer {
+  width: 100%;
+  max-width: 1200px;
+  height: 600px;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: rgba(15, 12, 41, 0.7); /* Semi-transparent background for the widget */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tradingview_widget_container {
+  height: 100%;
+  width: 100%;
+}

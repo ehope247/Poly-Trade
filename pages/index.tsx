@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from '../lib/UserContext';
 
@@ -8,7 +7,6 @@ import LiveActivity from '../components/LiveActivity';
 import FeatureSection from '../components/FeatureSection';
 import FeaturesList from '../components/FeaturesList';
 import AboutSection from '../components/AboutSection';
-import TradingChart from '../components/TradingChart';
 import TestimonialSection from '../components/TestimonialSection';
 import TeamSection from '../components/TeamSection';
 import PortfolioSection from '../components/PortfolioSection';
@@ -16,14 +14,12 @@ import PortfolioList from '../components/PortfolioList';
 import PortfolioItemBody from '../components/PortfolioItemBody';
 import PortfolioCTA from '../components/PortfolioCTA';
 import FAQSection from '../components/FAQSection';
-import TradingNews from '../components/TradingNews';
+import NewsTicker from '../components/NewsTicker'; // 1. Import the NEW component
 import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
-  // === THE FIX IS HERE ===
-  // Changed 'useyser()' to the correct 'useUser()'
-  const { session } = useUser(); 
+  const { session } = useUser();
   const router = useRouter();
 
   const handleGetStarted = () => {
@@ -43,7 +39,6 @@ const HomePage = () => {
         <FeatureSection />
         <FeaturesList />
         <AboutSection />
-        <TradingChart />
         <TestimonialSection />
         <TeamSection />
         <PortfolioSection />
@@ -51,7 +46,7 @@ const HomePage = () => {
         <PortfolioItemBody />
         <PortfolioCTA />
         <FAQSection />
-        <TradingNews />
+        <NewsTicker /> {/* 2. Add the component here */}
         <CTASection onCTAClick={handleGetStarted} />
       </main>
       <Footer />
