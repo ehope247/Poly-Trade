@@ -1,31 +1,52 @@
 import { useState } from 'react';
 import styles from './DepositModal.module.css';
+import { supabase } from '../lib/supabaseClient';
+import { useUser } from '../lib/UserContext';
 
 interface DepositModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const companyWallets = {
-  BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-  ETH: '0x1234567890123456789012345678901234567890',
-  USDT: 'TABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
-};
-
 const DepositModal = ({ isOpen, onClose }: DepositModalProps) => {
+  const { session } = useUser();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [amount, setAmount] = useState('');
   const [network, setNetwork] = useState('BTC');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    if (!session || !amount) return;
+
+    setLoading(true);
+    setError('');
+
+    const { error } = await supabase
+      .from('deposits')
+      .insert({
+        user_id: session.user.id,
+        amount: parseFloat(amount),
+        network: network,
+      });
+
+    setLoading(false);
+
+    if (error) {
+      setError('An error occurred. Please check your connection and try again.');
+      console.error('Deposit Submission Error:', error);
+    } else {
+      setIsSubmitted(true); // Show the success screen
+    }
   };
 
   const handleClose = () => {
+    // Reset all states when the modal is closed
     setIsSubmitted(false);
     setAmount('');
     setNetwork('BTC');
+    setError('');
     onClose();
   };
 
@@ -38,16 +59,8 @@ const DepositModal = ({ isOpen, onClose }: DepositModalProps) => {
 
         {isSubmitted ? (
           <div className={styles.confirmationView}>
-            <h2>Request Logged</h2>
-            <p>To complete your deposit, please send exactly <strong>${parseFloat(amount).toLocaleString()}</strong> of <strong>{network}</strong> to the address below.</p>
-            <div className={styles.walletInfo}>
-              <span className={styles.walletAddress}>{companyWallets[network]}</span>
-              <button onClick={() => navigator.clipboard.writeText(companyWallets[network])} className={styles.copyButton}>
-                Copy Address
-              </button>
-            </div>
-            {/* THE FIX IS HERE */}
-            <p className={styles.warning}>Your account will be credited once the transaction is confirmed on the network. This request will be marked as &apos;pending&apos;.</p>
+            <h2>Request Sent</h2>
+            <p>Your deposit request for <strong>${parseFloat(amount).toLocaleString()}</strong> has been sent to the admin for approval. Your balance will be updated upon confirmation.</p>
             <button onClick={handleClose} className={styles.doneButton}>Done</button>
           </div>
         ) : (
@@ -67,8 +80,9 @@ const DepositModal = ({ isOpen, onClose }: DepositModalProps) => {
                 <label htmlFor="amount">Amount (USD)</label>
                 <input id="amount" type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required placeholder="1000.00" step="0.01" />
               </div>
-              <button type="submit" className={styles.submitButton}>
-                Generate Deposit Address
+              {error && <p style={{color: 'red', textAlign: 'center'}}>{error}</p>}
+              <button type="submit" className={styles.submitButton} disabled={loading}>
+                {loading ? 'Sending...' : 'Send Deposit Request'}
               </button>
             </form>
           </>
