@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './TradingChart.module.css';
 
-// This is a small helper component for a single chart
-const ChartWidget = ({ symbol }) => {
-  const container = useRef();
+// 1. Define an interface for the props to make our code type-safe
+interface ChartWidgetProps {
+  symbol: string;
+}
+
+// 2. Apply the interface to the component's props
+const ChartWidget = ({ symbol }: ChartWidgetProps) => {
+  // 3. Add the correct type to the ref hook
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -25,28 +31,27 @@ const ChartWidget = ({ symbol }) => {
         "container_id": "tradingview_${symbol.replace(':', '_')}"
       }`;
 
-    // Check if the ref is available before appending
+    // Ensure the container is available before appending
     if (container.current) {
         container.current.appendChild(script);
     }
 
     // Cleanup function to remove the script when the component unmounts
     return () => {
-      if (container.current && container.current.contains(script)) {
-        container.current.removeChild(script);
+      if (container.current && container.current.firstChild) {
+        container.current.removeChild(container.current.firstChild);
       }
     };
-  }, [symbol]); // Re-run the effect if the symbol changes
+  }, [symbol]);
 
   return (
-    <div className={styles.tradingview_widget_container} ref={container}>
-      <div id={`tradingview_${symbol.replace(':', '_')}`}></div>
+    <div className={styles.tradingview_widget_container} ref={container} style={{ height: '100%', width: '100%' }}>
+      <div id={`tradingview_${symbol.replace(':', '_')}`} style={{ height: '100%', width: '100%' }}></div>
     </div>
   );
 };
 
 
-// This is the main component for the whole section
 const TradingChart = () => {
   return (
     <section className={styles.section}>
