@@ -1,6 +1,5 @@
 import styles from './FeaturesList.module.css';
 
-// SVG Icons for each feature, now with a gradient definition
 const IconStrategy = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="url(#gradient)" viewBox="0 0 256 256">
     <defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#8e2de2" /><stop offset="100%" stopColor="#4a00e0" /></linearGradient></defs>
@@ -33,18 +32,17 @@ const FeaturesList = () => {
           <IconStrategy />
         </div>
       </div>
-
       <div className={`${styles.featureRow} ${styles.rowReverse}`}>
         <div className={styles.textContainer}>
           <span className={styles.preTitle}>Live Analytics</span>
           <h3 className={styles.featureTitle}>Real-Time Portfolio Intelligence</h3>
-          <p className={styles.featureText}>Stay in command with our intuitive dashboard. Monitor your assets, analyze performance, and witness your portfolio's growth in real-time, 24/7.</p>
+          {/* THE FIX IS HERE */}
+          <p className={styles.featureText}>Stay in command with our intuitive dashboard. Monitor your assets, analyze performance, and witness your portfolio&apos;s growth in real-time, 24/7.</p>
         </div>
         <div className={styles.imageContainer}>
           <IconMonitoring />
         </div>
       </div>
-
       <div className={styles.featureRow}>
         <div className={styles.textContainer}>
           <span className={styles.preTitle}>Expert Support</span>
