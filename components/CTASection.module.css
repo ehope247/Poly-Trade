@@ -1,0 +1,78 @@
+.section {
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden; /* This is crucial to keep the video inside the rounded corners */
+}
+
+/* Layer 1: The Video Background */
+.backgroundVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the video */
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 1; /* Sits at the very bottom */
+}
+
+/* Layer 2: The Dark Overlay for Readability */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 12, 41, 0.7); /* A dark overlay with 70% opacity */
+  z-index: 2; /* Sits on top of the video */
+}
+
+/* Layer 3: The Text and Button Content */
+.content {
+  position: relative;
+  z-index: 3; /* Sits on top of the overlay */
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+}
+
+.ctaButton {
+  background-color: #ffffff;
+  color: #6a11cb;
+  border: none;
+  border-radius: 10px;
+  padding: 20px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ctaButton:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}

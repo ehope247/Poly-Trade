@@ -1,0 +1,73 @@
+.section {
+  padding: 80px 20px;
+}
+
+.title, .subtitle {
+  text-align: center;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #c0c0c0;
+  max-width: 600px;
+  margin: 0 auto 60px auto;
+}
+
+/* This container allows the table to scroll horizontally on small screens */
+.tableContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.portfolioTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* Ensures table has a minimum width before scrolling starts */
+}
+
+.portfolioTable th, .portfolioTable td {
+  padding: 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolioTable th {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Zebra striping for better readability */
+.portfolioTable tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.statusCompleted {
+  background-color: rgba(0, 255, 157, 0.1);
+  color: #00ff9d;
+}
+
+.statusOngoing {
+  background-color: rgba(255, 165, 0, 0.1);
+  color: #ffa500;
+}

@@ -1,0 +1,71 @@
+.section {
+  padding: 40px 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 30px;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px;
+
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.textContainer {
+  flex: 2; /* Allow text to take up more space */
+  min-width: 300px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: #c0c0c0;
+  line-height: 1.6;
+}
+
+.buttonContainer {
+  flex: 1;
+  text-align: right;
+  min-width: 150px;
+}
+
+.ctaButton {
+  background: linear-gradient(to right, #4a00e0, #8e2de2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+      text-align: center;
+  }
+  .buttonContainer {
+      text-align: center;
+      width: 100%;
+  }
+}

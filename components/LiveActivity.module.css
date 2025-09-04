@@ -1,0 +1,87 @@
+/* Define the seamless scrolling animation */
+@keyframes scrollUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    /* Move the list up by exactly half its total height (the height of one set of items) */
+    transform: translateY(-50%);
+  }
+}
+
+.activityWrapper {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.activityTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* This is the "window" for our animation */
+.activityContainer {
+  height: 400px; /* A fixed height is crucial */
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden; /* This hides the parts of the list that are outside the window */
+  position: relative; /* Needed for the fade effect */
+}
+
+/* This creates the professional fade-out effect at the top and bottom */
+.activityContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none; /* Allows clicking through the overlay */
+  background: linear-gradient(
+    to bottom, 
+    #1c193c 0%,       /* Match your background color */
+    rgba(28, 25, 60, 0) 20%, 
+    rgba(28, 25, 60, 0) 80%, 
+    #1c193c 100%      /* Match your background color */
+  );
+}
+
+/* This is the container for our two lists */
+.activityList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* Apply the animation: 30 seconds, constant speed, infinite loop */
+  animation: scrollUp 30s linear infinite;
+}
+
+/* A great UX feature: pause the animation on hover */
+.activityList:hover {
+  animation-play-state: paused;
+}
+
+.activityItem {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.activityIcon {
+  margin-right: 20px;
+  flex-shrink: 0; /* Prevents icon from shrinking */
+}
+
+.activityText {
+  color: #e0e0e0;
+}
+
+.activityText strong {
+  color: #00ff9d;
+}

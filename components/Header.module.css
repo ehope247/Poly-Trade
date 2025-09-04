@@ -1,0 +1,112 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgba(15, 12, 41, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.logoIcon {
+  color: #8e2de2;
+}
+
+.menuIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+  z-index: 12; /* Make sure it's above the menu panel */
+  position: relative;
+}
+
+.menuIcon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* --- The Dropdown Menu Panel Styles --- */
+.menuPanel {
+  position: absolute;
+  top: calc(100% + 10px); /* Position it below the header with a 10px gap */
+  right: 40px;
+  width: 220px;
+  background-color: rgba(25, 22, 58, 0.8); /* Darker, more opaque background */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 11;
+
+  /* Animation properties */
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  visibility: hidden; /* Hide it completely when not open */
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+/* This class is added when the menu is open */
+.menuPanel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+}
+
+.menuLink {
+  display: block;
+  padding: 12px 15px;
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.menuLink:hover {
+  background-color: rgba(142, 45, 226, 0.8); /* Brand color on hover */
+  color: #ffffff;
+}
+.divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 8px 10px;
+}
+/* Add this to the end of your Header.module.css file */
+.userInfo {
+  padding: 12px 15px;
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  line-height: 1.4;
+}
+.userInfo strong {
+  color: #ffffff;
+}
+/* === ADD THIS TO THE END of Header.module.css === */
+.brandLink {
+  text-decoration: none; /* Removes the default blue underline from the link */
+}

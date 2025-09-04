@@ -1,0 +1,134 @@
+.footer {
+  background-color: #0a081a;
+  color: #a0a0a0;
+  padding: 80px 20px 0 20px; /* Increased top padding, no bottom padding */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background grid texture */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  /* Responsive grid with 1-4 columns */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.columnMain {
+  grid-column: span 1; /* Default span */
+}
+
+/* On larger screens, make the first column wider */
+@media (min-width: 1024px) {
+  .columnMain {
+      grid-column: span 2;
+  }
+  .container {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+.brand {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+}
+
+.tagline {
+  margin: 0 0 25px 0;
+  font-size: 1rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 15px;
+}
+
+.socialLinks a {
+  color: #a0a0a0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.socialLinks a:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.columnTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkList li {
+  margin-bottom: 12px;
+}
+
+.linkList a {
+  color: #a0a0a0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.linkList a:hover {
+  color: #ffffff;
+}
+
+.address {
+  font-style: normal;
+  line-height: 1.8;
+}
+
+.address a {
+  color: #a0a0a0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.address a:hover {
+  color: #ffffff;
+}
+
+.bottomBar {
+  text-align: center;
+  margin-top: 60px;
+  padding: 25px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+}
+
+.bottomBar p {
+  margin: 0;
+}

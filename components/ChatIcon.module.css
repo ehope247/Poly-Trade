@@ -1,0 +1,28 @@
+.chatIconContainer {
+  /* --- Positioning --- */
+  position: fixed; /* This makes it float over the page */
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000; /* Ensures it's on top of almost everything */
+
+  /* --- Design --- */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* Makes it a perfect circle */
+  background: linear-gradient(to right, #4a00e0, #8e2de2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+  /* --- Centering the SVG inside --- */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* --- Interactivity --- */
+  cursor: pointer;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.chatIconContainer:hover {
+  transform: scale(1.1); /* Enlarge on hover */
+  box-shadow: 0 8px 25px rgba(142, 45, 226, 0.4);
+}
