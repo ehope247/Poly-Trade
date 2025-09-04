@@ -4,7 +4,7 @@ import { useUser } from '../lib/UserContext';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import LiveActivity from '../components/LiveActivity';
-import FeatureSection from '../components/FeatureSection';
+import CoreBenefitsSection from '../components/CoreBenefitsSection'; // 1. Import the NEW component
 import FeaturesList from '../components/FeaturesList';
 import AboutSection from '../components/AboutSection';
 import TestimonialSection from '../components/TestimonialSection';
@@ -14,7 +14,7 @@ import PortfolioList from '../components/PortfolioList';
 import PortfolioItemBody from '../components/PortfolioItemBody';
 import PortfolioCTA from '../components/PortfolioCTA';
 import FAQSection from '../components/FAQSection';
-import NewsTicker from '../components/NewsTicker'; // 1. Import the NEW component
+import NewsTicker from '../components/NewsTicker';
 import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
 
@@ -36,7 +36,7 @@ const HomePage = () => {
       <main>
         <HeroSection onGetStartedClick={handleGetStarted} />
         <LiveActivity />
-        <FeatureSection />
+        <CoreBenefitsSection /> {/* 2. Replace the old FeatureSection here */}
         <FeaturesList />
         <AboutSection />
         <TestimonialSection />
@@ -46,7 +46,7 @@ const HomePage = () => {
         <PortfolioItemBody />
         <PortfolioCTA />
         <FAQSection />
-        <NewsTicker /> {/* 2. Add the component here */}
+        <NewsTicker />
         <CTASection onCTAClick={handleGetStarted} />
       </main>
       <Footer />
