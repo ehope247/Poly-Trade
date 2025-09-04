@@ -1,6 +1,7 @@
 import Header from '../components/Header';
-import PageHeader from '../components/PageHeader';
-import ContactDetails from '../components/ContactDetails'; // 1. Import the new component
+// The broken 'PageHeader' import is now gone.
+import ContactDetails from '../components/ContactDetails';
+import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
 
 const ContactPage = () => {
@@ -8,13 +9,11 @@ const ContactPage = () => {
     <div>
       <Header />
       <main>
-        <PageHeader 
-          title="Get In Touch"
-          subtitle="We're here to help. Whether you have a question about our services, need assistance with your account, or want to discuss investment opportunities, our team is ready to answer all your questions."
-        />
-
-        <ContactDetails /> {/* 2. Add the component here */}
-
+        {/* We add padding here to create space at the top of the page */}
+        <div style={{ paddingTop: '120px' }}>
+          <ContactDetails />
+          <ContactForm />
+        </div>
       </main>
       <Footer />
     </div>
