@@ -1,7 +1,6 @@
 import Header from '../components/Header';
-// The broken 'PageHeader' import is now gone.
 import ContactDetails from '../components/ContactDetails';
-import ContactForm from '../components/ContactForm';
+import ContactForm from '../components/ContactForm'; // This import will now work
 import Footer from '../components/Footer';
 
 const ContactPage = () => {
@@ -9,7 +8,6 @@ const ContactPage = () => {
     <div>
       <Header />
       <main>
-        {/* We add padding here to create space at the top of the page */}
         <div style={{ paddingTop: '120px' }}>
           <ContactDetails />
           <ContactForm />
