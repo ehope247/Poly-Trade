@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './WithdrawModal.module.css';
+import { supabase } from '../lib/supabaseClient'; // Make sure you have this client
+import { useUser } from '../lib/UserContext';
 
 interface WithdrawModalProps {
   isOpen: boolean;
@@ -7,27 +9,43 @@ interface WithdrawModalProps {
 }
 
 const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
-  // State to manage which view is shown: the form or the success message
+  const { session } = useUser();
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // State for the form inputs
   const [amount, setAmount] = useState('');
-  const [network, setNetwork] = useState('BTC'); // Default to Bitcoin
+  const [network, setNetwork] = useState('BTC');
   const [address, setAddress] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would send this data to your backend here.
-    // For now, we'll just switch to the success view.
-    setIsSubmitted(true);
+    setError('');
+    if (!session) return;
+
+    // --- NEW LOGIC: Save to Supabase ---
+    const { error } = await supabase
+      .from('withdrawals')
+      .insert({ 
+        user_id: session.user.id,
+        amount: parseFloat(amount),
+        network: network,
+        wallet_address: address,
+        // status is 'pending' by default
+      });
+
+    if (error) {
+      setError('An error occurred. Please try again.');
+      console.error('Withdrawal Error:', error);
+    } else {
+      setIsSubmitted(true);
+    }
   };
 
   const handleClose = () => {
-    // Reset the form state when closing the modal
     setIsSubmitted(false);
     setAmount('');
     setNetwork('BTC');
     setAddress('');
+    setError('');
     onClose();
   };
 
@@ -38,7 +56,6 @@ const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
       <div className={styles.modalContent}>
         <button onClick={handleClose} className={styles.closeButton}>×</button>
 
-        {/* Conditional Rendering: Show success message OR the form */}
         {isSubmitted ? (
           <div className={styles.successView}>
             <div className={styles.successIcon}>
@@ -70,6 +87,7 @@ const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
                 <label htmlFor="address">Destination Address</label>
                 <input id="address" type="text" value={address} onChange={(e) => setAddress(e.target.value)} required placeholder="Enter your wallet address" />
               </div>
+              {error && <p style={{color: 'red', textAlign: 'center'}}>{error}</p>}
               <button type="submit" className={styles.submitButton}>
                 Confirm Withdrawal
               </button>
@@ -80,5 +98,4 @@ const WithdrawModal = ({ isOpen, onClose }: WithdrawModalProps) => {
     </div>
   );
 };
-
 export default WithdrawModal;
