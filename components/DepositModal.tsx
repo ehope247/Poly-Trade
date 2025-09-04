@@ -6,8 +6,6 @@ interface DepositModalProps {
   onClose: () => void;
 }
 
-// --- Placeholder Data ---
-// This wallet address information will eventually come from the Admin Panel.
 const companyWallets = {
   BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
   ETH: '0x1234567890123456789012345678901234567890',
@@ -48,7 +46,8 @@ const DepositModal = ({ isOpen, onClose }: DepositModalProps) => {
                 Copy Address
               </button>
             </div>
-            <p className={styles.warning}>Your account will be credited once the transaction is confirmed on the network. This request will be marked as 'pending'.</p>
+            {/* THE FIX IS HERE */}
+            <p className={styles.warning}>Your account will be credited once the transaction is confirmed on the network. This request will be marked as &apos;pending&apos;.</p>
             <button onClick={handleClose} className={styles.doneButton}>Done</button>
           </div>
         ) : (
