@@ -1,65 +1,41 @@
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 100vh; /* Make it full screen height */
-  padding: 0 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; min-height: 100vh; padding: 0 20px;
   background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/hero-background.jpg');
-  background-size: cover;
-  background-position: center;
+  background-size: cover; background-position: center;
 }
-
-/* --- Upgraded Hero Text Styles --- */
 .title {
-  font-size: 5.5rem; /* Increased font size */
-  font-weight: 800; /* Bolder */
-  margin-bottom: 20px;
-  line-height: 1.15;
-
-  /* Subtle white-to-grey gradient for a premium feel */
+  font-size: 5.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.15;
   background: linear-gradient(to bottom, #ffffff, #d0d0d0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-
-  /* A stronger shadow to make it stand out from the background */
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; color: transparent;
   text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
 }
-
 .subtitle {
-  font-size: 1.3rem; /* Slightly larger */
-  max-width: 650px;
-  margin-bottom: 40px;
-  color: #e0e0e0;
-  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.7);
+  font-size: 1.3rem; max-width: 650px; margin-bottom: 40px;
+  color: #e0e0e0; text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.7);
 }
-
 .ctaButton {
   background: linear-gradient(to right, #4a00e0, #8e2de2);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 18px 35px; /* Slightly larger */
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  color: white; border: none; border-radius: 8px;
+  padding: 18px 35px; font-size: 1.2rem; font-weight: bold;
+  cursor: pointer; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
-
 .ctaButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive adjustments for the title on smaller screens */
+/* --- Mobile Adjustments --- */
 @media (max-width: 768px) {
+  .hero {
+    min-height: 80vh; /* Shorter height on mobile */
+  }
   .title {
-    font-size: 3.5rem;
+    font-size: 3.2rem; /* Drastically smaller title */
+    line-height: 1.2;
   }
   .subtitle {
     font-size: 1.1rem;
+    padding: 0 10px;
   }
 }
