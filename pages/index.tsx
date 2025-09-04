@@ -4,8 +4,8 @@ import { useUser } from '../lib/UserContext';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import LiveActivity from '../components/LiveActivity';
-import CoreBenefitsSection from '../components/CoreBenefitsSection'; // 1. Import the NEW component
-import FeaturesList from '../components/FeaturesList';
+import CoreBenefitsSection from '../components/CoreBenefitsSection';
+import VideoFeaturesSection from '../components/VideoFeaturesSection'; // 1. Import the NEW component
 import AboutSection from '../components/AboutSection';
 import TestimonialSection from '../components/TestimonialSection';
 import TeamSection from '../components/TeamSection';
@@ -36,8 +36,8 @@ const HomePage = () => {
       <main>
         <HeroSection onGetStartedClick={handleGetStarted} />
         <LiveActivity />
-        <CoreBenefitsSection /> {/* 2. Replace the old FeatureSection here */}
-        <FeaturesList />
+        <CoreBenefitsSection />
+        <VideoFeaturesSection /> {/* 2. Replace the old FeaturesList here */}
         <AboutSection />
         <TestimonialSection />
         <TeamSection />
