@@ -1,0 +1,58 @@
+.banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 800px;
+  background-color: rgba(28, 31, 36, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #d1d5db;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #374151;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  z-index: 2000;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  /* Animation */
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 100px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.text a {
+  color: #38bdf8; /* A nice, clickable blue */
+  text-decoration: underline;
+  margin: 0 4px;
+}
+
+.button {
+  background-color: #00ff9d;
+  color: #111315;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent the button from shrinking */
+}
+
+@media (max-width: 600px) {
+  .banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}

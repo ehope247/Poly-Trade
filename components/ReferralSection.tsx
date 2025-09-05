@@ -6,8 +6,10 @@ const ReferralSection = () => {
   const { session } = useUser();
   const [copySuccess, setCopySuccess] = useState('');
 
+  // --- THE FIX IS HERE ---
+  // We now use your real, live domain name.
   const username = session?.user?.user_metadata?.username;
-  const referralLink = `https://poly-trade.com/signup?ref=${username}`;
+  const referralLink = `https://poly-trade.vercel.app/?ref=${username}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink).then(() => {
@@ -26,10 +28,9 @@ const ReferralSection = () => {
   return (
     <section className={styles.section}>
       <div className={styles.icon}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256"><path d="M240,88a16,16,0,0,1-16,16H135.61l58.3,58.3a16,16,0,0,1-22.62,22.62L112,125.61V216a16,16,0,0,1-32,0V125.61L20.69,184.91a16,16,0,0,1-22.62-22.62l58.3-58.3H16A16,16,0,0,1,0,88V40A16,16,0,0,1,16,24H88a16,16,0,0,1,16,16V80h48V40a16,16,0,0,1,16-16h72a16,16,0,0,1,16,16Z"></path></svg>
+        <svg xmlns="http://www.w.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256"><path d="M240,88a16,16,0,0,1-16,16H135.61l58.3,58.3a16,16,0,0,1-22.62,22.62L112,125.61V216a16,16,0,0,1-32,0V125.61L20.69,184.91a16,16,0,0,1-22.62-22.62l58.3-58.3H16A16,16,0,0,1,0,88V40A16,16,0,0,1,16,24H88a16,16,0,0,1,16,16V80h48V40a16,16,0,0,1,16-16h72a16,16,0,0,1,16,16Z"></path></svg>
       </div>
       <h2 className={styles.title}>Invite Friends, Earn Rewards</h2>
-      {/* THE FIX IS HERE */}
       <p className={styles.subtitle}>
         Share your unique referral link with friends. When they sign up, you&apos;ll be credited for the introduction.
       </p>

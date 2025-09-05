@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient'; // Import our Supabase client
-import { useRouter } from 'next/router'; // To redirect the user
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabaseClient';
+import { useRouter } from 'next/router';
 import styles from './SignUpModal.module.css';
 
 interface SignUpModalProps {
@@ -16,6 +16,19 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // --- NEW LOGIC TO READ THE REFERRAL CODE ---
+  const [referralCode, setReferralCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    // When the modal opens, check the URL for a referral code
+    if (router.isReady) {
+      const ref = router.query.ref as string;
+      if (ref) {
+        setReferralCode(ref);
+      }
+    }
+  }, [router.isReady, router.query]);
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -25,9 +38,10 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
       email,
       password,
       options: {
-        // This is how we save extra data like the username!
         data: {
           username: username,
+          // If a referral code exists, save it to the user's metadata
+          referred_by: referralCode,
         }
       }
     });
@@ -35,8 +49,6 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
     if (error) {
       setError(error.message);
     } else {
-      // If sign up is successful, Supabase automatically logs the user in.
-      // Now we redirect them to the dashboard.
       router.push('/dashboard');
     }
     setLoading(false);
