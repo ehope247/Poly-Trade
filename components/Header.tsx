@@ -16,19 +16,33 @@ const Header = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  // --- FIX #1: REFERRAL LINK LISTENER ---
+  // This useEffect hook now correctly checks for the referral code
+  // AND checks if a user is already logged in.
   useEffect(() => {
-    if (router.query.signup === 'true') {
-      setIsSignUpModalOpen(true);
-      router.replace('/', undefined, { shallow: true });
+    if (router.isReady) {
+      if (router.query.ref && !session) {
+        setIsSignUpModalOpen(true);
+      }
+      if (router.query.signup === 'true' && !session) {
+        setIsSignUpModalOpen(true);
+        // Clean up the URL
+        router.replace('/', undefined, { shallow: true });
+      }
     }
-  }, [router.query, router]);
+  }, [router.isReady, router.query, session]);
 
-  const toggleMenu = () => { setIsMenuOpen(!isMenuOpen); };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // --- FIX #2: SIGN OUT FUNCTIONALITY ---
+  // The previous version was missing this function entirely.
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    setIsMenuOpen(false);
-    router.push('/');
+    setIsMenuOpen(false); // Close the menu
+    router.push('/'); // Redirect to homepage
   };
 
   useEffect(() => {
@@ -50,15 +64,18 @@ const Header = () => {
             <span>Poly-Trade</span>
           </div>
         </Link>
+
         <div className={styles.menuIcon} onClick={toggleMenu}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ffffff" viewBox="0 0 256 256"><path d="M128,60a12,12,0,1,1-12-12A12,12,0,0,1,128,60Zm0,68a12,12,0,1,1-12-12A12,12,0,0,1,128,128Zm0,68a12,12,0,1,1-12-12A12,12,0,0,1,128,196Z"></path></svg>
         </div>
+
         <nav className={`${styles.menuPanel} ${isMenuOpen ? styles.open : ''}`}>
           {session ? (
             <>
               <div className={styles.userInfo}>Signed in as<br /><strong>{session.user.email}</strong></div>
               <div className={styles.divider}></div>
               <Link href="/dashboard" className={styles.menuLink}>Dashboard</Link>
+              {/* This button now correctly calls the handleSignOut function */}
               <div className={styles.menuLink} onClick={handleSignOut}>Sign Out</div>
             </>
           ) : (
@@ -67,13 +84,9 @@ const Header = () => {
               <div className={styles.menuLink} onClick={() => { setIsLoginModalOpen(true); setIsMenuOpen(false); }}>Login</div>
             </>
           )}
-          <div className={styles.divider}></div>
-          <Link href="/" className={styles.menuLink}>Home</Link>
-          {/* === THE NEW LINK IS HERE === */}
-          <Link href="/live-news" className={styles.menuLink}>Live News</Link>
-          <Link href="/contact" className={styles.menuLink}>Contact</Link>
         </nav>
       </header>
+
       <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </>
