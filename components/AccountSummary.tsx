@@ -5,44 +5,53 @@ import { supabase } from '../lib/supabaseClient';
 import WithdrawModal from './WithdrawModal';
 import DepositModal from './DepositModal';
 
-const AccountSummary = () => {
+// --- THIS IS THE FIX ---
+// We define the props that this component will accept
+interface AccountSummaryProps {
+  onDepositClick: () => void;
+}
+
+const AccountSummary = ({ onDepositClick }: AccountSummaryProps) => { // And we receive them here
   const { session } = useUser();
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
-  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  // The Deposit Modal state is now managed by the parent page (dashboard.tsx)
 
-  // --- State for REAL data ---
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchProfile = async () => {
+    if (!session) return;
+    setLoading(true);
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', session.user.id)
+      .single();
+
+    if (error && error.code === 'PGRST116') {
+      // Profile doesn't exist, this can happen for users created before the profiles table
+      console.log('No profile found for user, showing defaults.');
+      setProfile({ total_balance: 0, withdrawable_balance: 0, pending_funds: 0, username: session.user.user_metadata.username });
+    } else if (error) {
+      console.error('Error fetching profile:', error);
+    } else {
+      setProfile(data);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchProfile = async () => {
-      if (!session) return;
-      setLoading(true);
-
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', session.user.id)
-        .single(); // We expect only one row
-
-      if (error) {
-        console.error('Error fetching profile:', error);
-      } else {
-        setProfile(data);
-      }
-      setLoading(false);
-    };
-
     fetchProfile();
   }, [session]);
 
-  const username = profile?.username || 'Investor';
-
-  // Function to re-fetch data after a withdrawal is made
   const onWithdrawalSuccess = () => {
-    // A simple way to re-fetch is to just reload the page for now
-    window.location.reload();
+    // Re-fetch the profile data after a successful withdrawal
+    fetchProfile();
+    setIsWithdrawModalOpen(false); // Close the modal
   };
+
+  const username = profile?.username || 'Investor';
 
   return (
     <>
@@ -71,7 +80,7 @@ const AccountSummary = () => {
                   </div>
                 </div>
                 <div className={styles.buttonGroup}>
-                  <button className={styles.depositButton} onClick={() => setIsDepositModalOpen(true)}>Deposit Funds</button>
+                  <button className={styles.depositButton} onClick={onDepositClick}>Deposit Funds</button>
                   <button className={styles.withdrawButton} onClick={() => setIsWithdrawModalOpen(true)}>Withdraw Funds</button>
                 </div>
               </div>
@@ -81,7 +90,7 @@ const AccountSummary = () => {
       </div>
 
       <WithdrawModal isOpen={isWithdrawModalOpen} onClose={() => setIsWithdrawModalOpen(false)} onWithdrawalSuccess={onWithdrawalSuccess} />
-      <DepositModal isOpen={isDepositModalOpen} onClose={() => setIsDepositModalOpen(false)} />
+      {/* DepositModal is now controlled by the dashboard page */}
     </>
   );
 };
