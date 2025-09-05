@@ -44,3 +44,12 @@ section h2 {
     padding-right: 15px !important;
   }
 }
+/* --- ADD THIS TO THE BOTTOM of styles/globals.css --- */
+
+/* 
+  This is a CSS selector that specifically targets the Elfsight branding link.
+  We are telling the browser to make it completely invisible and unclickable.
+*/
+.elfsight-app-97b72468-9bdf-40b2-afeb-a129abee5d0a [href*="elfsight"] {
+  display: none !important;
+}
