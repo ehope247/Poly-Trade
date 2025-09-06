@@ -6,43 +6,52 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .brandLink { text-decoration: none; }
-.brand {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 1.8rem; font-weight: bold; letter-spacing: 1px; color: #ffffff;
-}
-.logoIcon { color: #8e2de2; }
+.brand { /* ... existing styles ... */ }
+.logoIcon { /* ... existing styles ... */ }
+.rightSection { display: flex; align-items: center; gap: 15px; }
+.menuIcon { /* ... existing styles ... */ }
 
-/* --- NEW STYLE FOR RIGHT SECTION --- */
-.rightSection {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Creates space between the translator and the menu icon */
-}
-
-.menuIcon {
-  width: 44px; height: 44px; border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex; justify-content: center; align-items: center;
-  cursor: pointer; transition: background-color 0.2s ease-in-out, transform 0.2s ease;
-  z-index: 12; position: relative;
-}
-.menuIcon:hover {
-  background-color: rgba(255, 255, 255, 0.2); transform: scale(1.05);
-}
+/* --- New, Upgraded Menu Panel Styles --- */
 .menuPanel {
-  position: absolute; top: calc(100% + 10px); right: 40px;
-  width: 220px; background-color: rgba(25, 22, 58, 0.8);
-  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
-  padding: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: absolute; top: calc(100% + 15px); right: 40px;
+  width: 250px; /* Wider for icons */
+  background: rgba(28, 31, 36, 0.85); /* Darker, more professional glass */
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   z-index: 11; opacity: 0; transform: translateY(-10px) scale(0.95);
-  visibility: hidden; transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  visibility: hidden; transition: all 0.2s ease-out;
 }
-.menuPanel.open { opacity: 1; transform: translateY(0) scale(1); visibility: visible; }
-.menuLink { /* ... existing styles ... */ }
-.divider { /* ... existing styles ... */ }
-.userInfo { /* ... existing styles ... */ }
+.menuPanel.open {
+  opacity: 1; transform: translateY(0) scale(1); visibility: visible;
+}
+.menuLink {
+  display: flex; align-items: center; gap: 15px; /* Align icon and text */
+  padding: 12px 15px; color: #d1d5db; /* Softer text color */
+  text-decoration: none; font-size: 1rem; border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.menuLink:hover {
+  background-color: rgba(142, 45, 226, 0.8);
+  color: #ffffff;
+}
+.divider {
+  height: 1px; background-color: rgba(255, 255, 255, 0.1); margin: 8px 10px;
+}
+/* --- New User Info Styles --- */
+.userInfo {
+  padding: 12px 15px; line-height: 1.4;
+}
+.userInfoLabel {
+  font-size: 0.85rem; color: #9ca3af;
+}
+.userInfoEmail {
+  font-size: 1rem; font-weight: 500; color: #ffffff;
+  word-break: break-all;
+}
 @media (max-width: 768px) {
   .header { padding: 15px 20px; }
   .brand { font-size: 1.4rem; gap: 8px; }
